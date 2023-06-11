@@ -1,0 +1,177 @@
+syntax = "proto3";
+package mafia;
+
+
+service Mafia {
+  // Rooms and chats handlers
+
+  rpc Action (ActionRequest) returns (stream ActionResponse);
+  rpc ChatStream (ChatStreamRequest) returns (stream ChatStreamResponse);
+  rpc SendMessage (SendMessageRequest) returns (SendMessageResponse);
+  rpc JoinRoom (JoinRoomRequest) returns (JoinRoomResponse);
+  rpc CreateRoom (CreateRoomRequest) returns (CreateRoomResponse);
+
+  // Game logic
+
+  rpc GetGameStatus (GetGameStatusRequest) returns (GetGameStatusResponse);
+  rpc GetPlayers (GetPlayersRequest) returns (GetPlayersResponse);
+  rpc CheckUser (CheckUserRequest) returns (CheckUserResponse);
+
+  rpc KillPlayer (KillPlayerRequest) returns (KillPlayerResponse);
+  rpc VotePaper (VotePaperRequest) returns (VotePaperResponse);
+  rpc GetPlayerUpdates (GetPlayerUpdatesRequest) returns (GetPlayerUpdatesResponse);
+
+  rpc DayToNight (DayToNightRequest) returns (DayToNightResponse);
+  rpc NightToDay (NightToDayRequest) returns (NightToDayResponse);
+}
+
+message Player {
+  string username = 1;
+  bool alive = 2;
+}
+
+// Rooms and chats
+
+message CreateRoomRequest {
+  string username = 1;
+  string room_name = 2;
+}
+
+message CreateRoomResponse {
+  bool flag = 1;
+  string message = 2;
+}
+
+message JoinRoomRequest {
+  string username = 1;
+  string room_name = 2;
+}
+
+message JoinRoomResponse {
+  bool flag = 1;
+  string message = 2;
+}
+
+message ActionRequest {
+  string room_name = 1;
+  string username = 2;
+}
+
+message ActionResponse {
+  bool flag = 1;
+  string message = 2;
+}
+
+message ChatStreamRequest {
+  string room_name = 1;
+  string username = 2;
+}
+
+message ChatStreamResponse {
+  bool flag = 1;
+  string username = 2;
+  string message = 3;
+}
+
+message SendMessageRequest {
+  string username = 1;
+  string room_name = 2;
+  string content = 3;
+}
+
+message SendMessageResponse {
+  bool flag = 1;
+  string username = 2;
+  string content = 3;
+  optional string warning = 4;
+}
+
+// Voting killing stalking idk
+
+message VotePaperRequest {
+  string room_name = 1;
+  string victim = 2;
+  string username = 3;
+}
+
+message VotePaperResponse {
+  bool status = 1;
+  string info = 2;
+}
+
+message KillPlayerRequest {
+  string room_name = 1;
+  string victim = 2;
+  string username = 3;
+}
+
+message KillPlayerResponse {
+  bool flag = 1;
+  string message = 2;
+}
+
+message GetGameStatusRequest {
+  string room_name = 1;
+  string username =2;
+}
+
+message GetGameStatusResponse {
+  repeated string players = 1;
+  string username = 2;
+  repeated string winners = 3;
+}
+
+message GetPlayerUpdatesRequest {
+  string room_name = 1;
+  string username =2;
+}
+
+message GetPlayerUpdatesResponse {
+  string room_name = 1;
+  string username = 2;
+  string role = 3;
+  string status = 4;
+}
+
+message GetPlayersRequest {
+  string room_name = 1;
+}
+
+message GetPlayersResponse {
+  string room_name = 1;
+  repeated string names = 2;
+  repeated string roles = 3;
+}
+
+message DayToNightRequest {
+  string room_name = 1;
+  string username = 2;
+}
+
+message DayToNightResponse {
+  bool flag = 1;
+  string victim = 2;
+  optional string message = 3;
+}
+
+message NightToDayRequest {
+  string room_name = 1;
+  string username = 2;
+  string victim = 3;
+}
+
+message NightToDayResponse {
+  bool flag = 1;
+  string victim = 2;
+  optional string message = 3;
+}
+
+// CheckUser Method
+message CheckUserRequest {
+  string username = 1;
+}
+
+message CheckUserResponse {
+  bool isMafia = 1;
+}
+
