@@ -1,6 +1,12 @@
 # hw-mafia-game
 gRPC Mafia game app 
 
+### Setup
+```
+docker-compose build
+docker-compose up
+```
+
 ### Usage
 * Сгенерировать код из .proto файла можно из директории proto с помощью следующих команд:
 
