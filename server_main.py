@@ -14,8 +14,8 @@ from collections import defaultdict
 
 ## homemade code
 
-host = '127.0.0.1'  # Или 'localhost'
-port = '5000'
+host = '0.0.0.0'  # Или 'localhost'
+port = '50051'
 
 
 ROLE_UNKNOWN = 'Unknown'
